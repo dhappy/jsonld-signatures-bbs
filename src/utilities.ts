@@ -31,16 +31,11 @@ const PROOF_PROPERTY = "proof";
 export const getProofs = async (
   options: GetProofsOptions
 ): Promise<GetProofsResult> => {
-  const {
-    proofType,
-    skipProofCompaction,
-    documentLoader,
-    expansionMap
-  } = options;
+  const { proofType, compactProof, documentLoader, expansionMap } = options;
   let { document } = options;
 
   let proofs;
-  if (!skipProofCompaction) {
+  if (compactProof) {
     // If we must compact the proof then we must first compact the input
     // document to find the proof
     document = await jsonld.compact(document, SECURITY_CONTEXT_URL, {
@@ -52,6 +47,8 @@ export const getProofs = async (
 
   proofs = jsonld.getValues(document, PROOF_PROPERTY);
   delete document[PROOF_PROPERTY];
+
+  console.info("PFT", proofs, proofType);
 
   if (proofType) {
     proofs = proofs.filter((_: any) => _.type == proofType);

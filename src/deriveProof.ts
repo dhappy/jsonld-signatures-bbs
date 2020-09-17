@@ -28,7 +28,7 @@ import { SECURITY_PROOF_URL } from "jsonld-signatures";
 export const deriveProof = async (
   proofDocument: any,
   revealDocument: any,
-  { suite, documentLoader, expansionMap, skipProofCompaction }: any
+  { suite, documentLoader, expansionMap, compactProof }: any
 ): Promise<any> => {
   if (!suite) {
     throw new TypeError('"options.suite" is required.');
@@ -37,19 +37,20 @@ export const deriveProof = async (
   const { proofs, document } = await getProofs({
     document: proofDocument,
     proofType: suite.supportedDeriveProofType,
+    compactProof,
     documentLoader,
     expansionMap
   });
 
   const result = await suite.deriveProof({
     document,
-    proof: proofs[0],
+    proof: proofs,
     revealDocument,
     documentLoader,
     expansionMap
   });
 
-  if (!skipProofCompaction) {
+  if (compactProof) {
     /* eslint-disable prefer-const */
     let expandedProof: any = {
       [SECURITY_PROOF_URL]: { "@graph": result.proof }

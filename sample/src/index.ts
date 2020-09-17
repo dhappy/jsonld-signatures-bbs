@@ -23,7 +23,7 @@ import { documentLoaders } from "jsonld";
 import inputDocument from "./data/inputDocument.json";
 import keyPairOptions from "./data/keyPair.json";
 import exampleControllerDoc from "./data/controllerDocument.json";
-import bbsContext from "./data/lds-bbsbls2020-v0.0.json";
+import bbsContext from "./data/ldp-bbs2020-v0.1.json";
 import revealDocument from "./data/deriveProofFrame.json";
 import citizenVocab from "./data/citizenVocab.json";
 
@@ -31,7 +31,7 @@ import citizenVocab from "./data/citizenVocab.json";
 const documents: any = {
   "did:example:489398593#test": keyPairOptions,
   "did:example:489398593": exampleControllerDoc,
-  "https://w3c-ccg.github.io/lds-bbsbls2020/contexts": bbsContext,
+  "https://w3c-ccg.github.io/ldp-bbs2020/context/v1": bbsContext,
   "https://w3id.org/citizenship/v1": citizenVocab
 };
 
@@ -65,19 +65,30 @@ const main = async (): Promise<void> => {
   const signedDocument = await sign(inputDocument, {
     suite: new BbsBlsSignature2020({ key: keyPair }),
     purpose: new purposes.AssertionProofPurpose(),
-    documentLoader,
-    compactProof: false
+    compactProof: false,
+    documentLoader
   });
 
   console.log("Input document with proof");
   console.log(JSON.stringify(signedDocument, null, 2));
 
+  //Sign the input document
+  const signedDocument2 = await sign(signedDocument, {
+    suite: new BbsBlsSignature2020({ key: keyPair }),
+    purpose: new purposes.AssertionProofPurpose(),
+    compactProof: false,
+    documentLoader
+  });
+
+  console.log("Input document with 2 proofs");
+  console.log(JSON.stringify(signedDocument2, null, 2));
+
   //Verify the proof
   let verified = await verify(signedDocument, {
     suite: new BbsBlsSignature2020(),
     purpose: new purposes.AssertionProofPurpose(),
-    documentLoader,
-    compactProof: false
+    compactProof: false,
+    documentLoader
   });
 
   console.log("Verification result");
@@ -86,17 +97,19 @@ const main = async (): Promise<void> => {
   //Derive a proof
   const derivedProof = await deriveProof(signedDocument, revealDocument, {
     suite: new BbsBlsSignatureProof2020(),
+    compactProof: false,
     documentLoader
   });
 
+  console.log("Derived proof");
   console.log(JSON.stringify(derivedProof, null, 2));
 
   //Verify the derived proof
   verified = await verify(derivedProof, {
     suite: new BbsBlsSignatureProof2020(),
     purpose: new purposes.AssertionProofPurpose(),
-    documentLoader,
-    compactProof: false
+    compactProof: false,
+    documentLoader
   });
 
   console.log("Verification result");
