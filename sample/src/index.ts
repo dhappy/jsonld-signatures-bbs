@@ -94,6 +94,7 @@ const main = async (): Promise<void> => {
   //Derive a proof
   const derivedProof = await deriveProof(signedDocument, revealDocument, {
     suite: new BbsBlsSignatureProof2020(),
+    compactProof: false,
     documentLoader
   });
 

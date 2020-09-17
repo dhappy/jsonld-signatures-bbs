@@ -53,6 +53,8 @@ export const getProofs = async (
   proofs = jsonld.getValues(document, PROOF_PROPERTY);
   delete document[PROOF_PROPERTY];
 
+  console.info("PFT", proofs, proofType);
+
   if (proofType) {
     proofs = proofs.filter((_: any) => _.type == proofType);
   }
