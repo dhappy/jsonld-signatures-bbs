@@ -35,5 +35,5 @@ export interface GetProofsOptions {
   /**
    * Optional property to indicate whether to skip compacting the resulting proof
    */
-  readonly skipProofCompaction?: boolean;
+  readonly compactProof?: boolean;
 }

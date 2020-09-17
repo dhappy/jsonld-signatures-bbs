@@ -46,7 +46,7 @@ describe("BbsBlsSignatureProof2020", () => {
 
     let result: any = await suite.deriveProof({
       document,
-      proof: proofs[0],
+      proof: proofs,
       revealDocument: testRevealDocument,
       documentLoader: customLoader
     });
@@ -67,7 +67,7 @@ describe("BbsBlsSignatureProof2020", () => {
 
     const result = await suite.deriveProof({
       document,
-      proof: proofs[0],
+      proof: proofs,
       revealDocument: testRevealAllDocument,
       documentLoader: customLoader
     });
@@ -88,7 +88,7 @@ describe("BbsBlsSignatureProof2020", () => {
 
     const result = await suite.deriveProof({
       document,
-      proof: proofs[0],
+      proof: proofs,
       revealDocument: testRevealVcDocument,
       documentLoader: customLoader
     });
@@ -105,7 +105,7 @@ describe("BbsBlsSignatureProof2020", () => {
 
     const result = await suite.verifyProof({
       document,
-      proof: proofs[0],
+      proof: proofs,
       documentLoader: customLoader,
       purpose: new jsigs.purposes.AssertionProofPurpose()
     });
@@ -122,7 +122,7 @@ describe("BbsBlsSignatureProof2020", () => {
 
     const result = await suite.verifyProof({
       document,
-      proof: proofs[0],
+      proof: proofs,
       documentLoader: customLoader,
       purpose: new jsigs.purposes.AssertionProofPurpose()
     });
@@ -139,7 +139,7 @@ describe("BbsBlsSignatureProof2020", () => {
 
     const result = await suite.verifyProof({
       document,
-      proof: proofs[0],
+      proof: proofs,
       documentLoader: customLoader,
       purpose: new jsigs.purposes.AssertionProofPurpose()
     });
@@ -156,7 +156,7 @@ describe("BbsBlsSignatureProof2020", () => {
 
     const result = await suite.verifyProof({
       document,
-      proof: proofs[0],
+      proof: proofs,
       documentLoader: customLoader,
       purpose: new jsigs.purposes.AssertionProofPurpose()
     });

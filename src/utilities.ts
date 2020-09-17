@@ -33,14 +33,14 @@ export const getProofs = async (
 ): Promise<GetProofsResult> => {
   const {
     proofType,
-    skipProofCompaction,
+    compactProof = true,
     documentLoader,
     expansionMap
   } = options;
   let { document } = options;
 
   let proofs;
-  if (!skipProofCompaction) {
+  if (compactProof) {
     // If we must compact the proof then we must first compact the input
     // document to find the proof
     document = await jsonld.compact(document, SECURITY_CONTEXT_URL, {

@@ -1,3 +1,9 @@
+# [0.8.0](https://github.com/mattrglobal/jsonld-signatures-bbs/compare/v0.7.0...v0.8.0) (2020-09-19)
+
+### Features
+
+- enable proof derivation for documents with multiple signatures ([#79](https://github.com/mattrglobal/jsonld-signatures-bbs/issues/79)) ([f48bc6df](https://github.com/mattrglobal/jsonld-signatures-bbs/commit/f48bc6df17bbea6de4eeab92d84401c163844b03))
+
 # [0.7.0](https://github.com/mattrglobal/jsonld-signatures-bbs/compare/v0.6.0...v0.7.0) (2020-08-28)
 
 ### Bug Fixes

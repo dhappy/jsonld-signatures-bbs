@@ -44,7 +44,6 @@ describe("vc-js integration", () => {
       documentLoader: customLoader,
       suite: new BbsBlsSignature2020({ key })
     });
-
     expect(verifiableCredential.proof).toBeDefined();
   });
 

@@ -43,5 +43,5 @@ export interface DeriveProofOptions {
   /**
    * Indicates whether to compact the resulting proof
    */
-  readonly skipProofCompaction?: boolean;
+  readonly compactProof?: boolean;
 }
