@@ -69,7 +69,7 @@ const main = async (): Promise<void> => {
   });
 
   console.log("Input document with proof");
-  console.log(JSON.stringify(signedDocument, null, 2));
+  console.log(JSON.stringify(inputDocument, null, 2));
 
   //Sign the input document
   const signedDocument2 = await sign(signedDocument, {
@@ -82,7 +82,7 @@ const main = async (): Promise<void> => {
   console.log(JSON.stringify(signedDocument2, null, 2));
 
   //Verify the proof
-  let verified = await verify(signedDocument, {
+  let verified = await verify(inputDocument, {
     suite: new BbsBlsSignature2020(),
     purpose: new purposes.AssertionProofPurpose(),
     documentLoader
@@ -92,7 +92,7 @@ const main = async (): Promise<void> => {
   console.log(JSON.stringify(verified, null, 2));
 
   //Derive a proof
-  const derivedProof = await deriveProof(signedDocument, revealDocument, {
+  const derivedProof = await deriveProof(inputDocument, revealDocument, {
     suite: new BbsBlsSignatureProof2020(),
     compactProof: false,
     documentLoader
