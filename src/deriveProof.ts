@@ -80,6 +80,7 @@ export const deriveProof = async (
     jsonld.addValue(result.document, key, compactProof[key]);
   } else {
     delete result.proof["@context"];
+    console.info("RPF", result.proof);
     jsonld.addValue(result.document, "proof", result.proof);
   }
 

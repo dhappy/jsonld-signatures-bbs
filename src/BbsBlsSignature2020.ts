@@ -115,6 +115,12 @@ export class BbsBlsSignature2020 extends suites.LinkedDataProof {
     // ensure proof type is set
     proof.type = this.type;
 
+    console.info("TYP", proof, this.type);
+
+    if (proof.type === this.type) {
+      proof.type = proof.type.replace(/[^#]+#/, "");
+    }
+
     // set default `now` date if not given in `proof` or `options`
     let date = this.date;
     if (proof.created === undefined && date === undefined) {

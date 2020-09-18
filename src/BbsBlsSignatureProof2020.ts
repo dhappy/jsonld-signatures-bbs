@@ -116,6 +116,8 @@ export class BbsBlsSignatureProof2020 extends suites.LinkedDataProof {
         );
       }
 
+      console.info("SIG", proof);
+
       //Extract the BBS signature from the input proof
       const signature = Buffer.from(proof[this.proofSignatureKey], "base64");
 

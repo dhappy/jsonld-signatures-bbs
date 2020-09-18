@@ -23,7 +23,7 @@ import { documentLoaders } from "jsonld";
 import inputDocument from "./data/inputDocument.json";
 import keyPairOptions from "./data/keyPair.json";
 import exampleControllerDoc from "./data/controllerDocument.json";
-import bbsContext from "./data/ldp-bbs2020-v0.1.json";
+import bbsContext from "./data/lds-bbsbls2020-v0.0.json";
 import revealDocument from "./data/deriveProofFrame.json";
 import citizenVocab from "./data/citizenVocab.json";
 
@@ -65,26 +65,29 @@ const main = async (): Promise<void> => {
   const signedDocument = await sign(inputDocument, {
     suite: new BbsBlsSignature2020({ key: keyPair }),
     purpose: new purposes.AssertionProofPurpose(),
+    compactProof: false,
     documentLoader
   });
 
   console.log("Input document with proof");
   console.log(JSON.stringify(inputDocument, null, 2));
 
-  //Sign the input document
-  const signedDocument2 = await sign(signedDocument, {
+  //Sign the input document again
+  const signedDocument2 = await sign(inputDocument, {
     suite: new BbsBlsSignature2020({ key: keyPair }),
     purpose: new purposes.AssertionProofPurpose(),
+    compactProof: false,
     documentLoader
   });
 
   console.log("Input document with 2 proofs");
-  console.log(JSON.stringify(signedDocument2, null, 2));
+  console.log(JSON.stringify(inputDocument, null, 2));
 
   //Verify the proof
   let verified = await verify(inputDocument, {
     suite: new BbsBlsSignature2020(),
     purpose: new purposes.AssertionProofPurpose(),
+    compactProof: false,
     documentLoader
   });
 
@@ -105,6 +108,7 @@ const main = async (): Promise<void> => {
   verified = await verify(derivedProof, {
     suite: new BbsBlsSignatureProof2020(),
     purpose: new purposes.AssertionProofPurpose(),
+    compactProof: false,
     documentLoader
   });
 
